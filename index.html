@@ -1,1 +1,163 @@
-p
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Layanan NOKOS Premium</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <style>
+    * { scroll-behavior: smooth; }
+    body {
+      background: linear-gradient(135deg, #050e2d, #1f3b8c);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    #loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #0a0a0a;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader-circle {
+      border: 5px solid #3498db;
+      border-top: 5px solid transparent;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      animation: spin 1.2s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .testimoni {
+      background: #101e4b;
+      border-left: 5px solid #00ff99;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+    }
+    .bg-glow {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px #00ffff3a;
+    }
+    .wa-btn {
+      background-color: #25d366;
+      border: none;
+      padding: 10px 25px;
+      font-size: 18px;
+      color: white;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .wa-btn:hover {
+      background-color: #1ebc57;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body onload="playGreeting()">
+
+  <div id="loader">
+    <div class="loader-circle"></div>
+  </div>
+
+  <section class="text-center p-5">
+    <img src="https://files.catbox.moe/24a0fa.jpg" alt="Foto Owner" width="120" class="rounded-circle mb-3 shadow">
+    <h1>Layanan <span class="text-info">Nomor Kosong (NOKOS)</span> Luar & Lokal</h1>
+    <p class="lead">Tersedia: Indonesia, Malaysia, Singapura, Filipina ✅</p>
+    <audio id="greetingAudio" src="https://files.catbox.moe/x04la7.mp3" autoplay></audio>
+  </section>
+
+  <section class="container bg-glow">
+    <h2 class="text-center">Form Order Otomatis</h2>
+    <form onsubmit="sendOrder(event)">
+      <div class="mb-3">
+        <label class="form-label">Nama Kamu</label>
+        <input type="text" class="form-control" id="nama" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Pilih Negara</label>
+        <select class="form-select" id="negara">
+          <option value="Indonesia">Indonesia</option>
+          <option value="Malaysia">Malaysia</option>
+          <option value="Singapura">Singapura</option>
+          <option value="Filipina">Filipina</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Jumlah Nomor</label>
+        <input type="number" class="form-control" id="jumlah" required>
+      </div>
+      <button type="submit" class="wa-btn"><i class="bi bi-whatsapp"></i> Order via WhatsApp</button>
+    </form>
+  </section>
+
+  <section class="container mt-5">
+    <h2 class="text-center">Testimoni Pelanggan</h2>
+    <div id="testimoniCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="testimoni">
+            <p>🔥 Pelayanannya cepat dan ramah, cocok buat verif akun!</p>
+            <strong>- Rian (Malaysia)</strong>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testimoni">
+            <p>✅ Nomornya aktif dan langsung bisa dipakai. Mantap!</p>
+            <strong>- Dita (Singapura)</strong>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testimoni">
+            <p>Terbaik, harga murah dan fast respon. Recommended seller!</p>
+            <strong>- Asep (Indonesia)</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center mt-5 p-3 bg-dark text-white">
+    &copy; 2025 Layanan NOKOS by ZenTech | All rights reserved.
+  </footer>
+
+  <script>
+    // loader animation
+    window.onload = function () {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+      }, 1500);
+    };
+
+    function sendOrder(e) {
+      e.preventDefault();
+      let nama = document.getElementById("nama").value;
+      let negara = document.getElementById("negara").value;
+      let jumlah = document.getElementById("jumlah").value;
+
+      let pesan = `Halo Admin, saya ingin order NOKOS:\nNama: ${nama}\nNegara: ${negara}\nJumlah: ${jumlah}`;
+      let url = `https://wa.me/6283163411954?text=${encodeURIComponent(pesan)}`;
+      window.open(url, '_blank');
+
+      alert("✅ Order kamu sudah terkirim ke WhatsApp Admin!");
+    }
+
+    function playGreeting() {
+      const audio = document.getElementById("greetingAudio");
+      audio.play().catch(() => {}); // untuk autoplay error di mobile
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
